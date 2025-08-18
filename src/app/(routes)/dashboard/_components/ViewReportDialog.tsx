@@ -1,0 +1,149 @@
+import React from "react";
+import moment from "moment";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
+type MedicalReport = {
+  sessionId: string;
+  agent: string;
+  user: string;
+  timestamp: string;
+  chiefComplaint: string;
+  summary: string;
+  symptoms: string[];
+  duration: string;
+  severity: string;
+  medicationsMentioned: string[];
+  recommendations: string[];
+  selectedDoctor?: {
+    specialist?: string;
+    image?: string;
+  };
+};
+
+type Props = {
+  report: MedicalReport;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+const truncateText = (text: string, maxLength: number) =>
+  text.length > maxLength ? text.slice(0, maxLength) + "…" : text;
+
+export function ViewReportDialog({ report, open, onOpenChange }: Props) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent
+        className="max-w-lg p-6 rounded-xl mx-auto my-6"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 0 20px rgba(0, 0, 0, 0.15)",
+          maxHeight: "70vh",
+          overflowY: "auto",
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle className="text-center mb-4 text-2xl font-bold text-blue-700 flex justify-center items-center gap-2">
+            <span role="img" aria-label="stethoscope">
+              🩺
+            </span>
+            Medical AI Voice Agent Report
+          </DialogTitle>
+        </DialogHeader>
+
+        <div>
+          {/* Session Info */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Session Info</div>
+            <div className="text-sm mb-1">
+              <span className="font-bold">Doctor:</span>{" "}
+              {report.selectedDoctor?.specialist || report.agent}
+              <span className="ml-3 font-bold">User:</span> {report.user}
+            </div>
+            <div className="text-sm mb-1">
+              <span className="font-bold">Consulted On:</span>{" "}
+              {moment(report.timestamp).format("MMMM Do YYYY, h:mm a")}
+              <span className="ml-3 font-bold">Agent:</span> {report.agent}
+            </div>
+            <div className="text-xs text-gray-400 mb-1">Session ID: {report.sessionId}</div>
+          </div>
+
+          {/* Chief Complaint */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Chief Complaint</div>
+            <div className="text-sm">{truncateText(report.chiefComplaint || "Not specified.", 150)}</div>
+          </div>
+
+          {/* Summary */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Summary</div>
+            <div className="text-sm">{truncateText(report.summary || "No summary available.", 250)}</div>
+          </div>
+
+          {/* Symptoms */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Symptoms</div>
+            <div className="text-sm">
+              {report.symptoms && report.symptoms.length > 0
+                ? report.symptoms.join(", ")
+                : "No symptoms specified."}
+            </div>
+          </div>
+
+          {/* Duration & Severity */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Duration &amp; Severity</div>
+            <div className="flex gap-4 text-sm">
+              <div>
+                <span className="font-bold">Duration:</span> {report.duration || "Not specified"}
+              </div>
+              <div>
+                <span className="font-bold">Severity:</span> {report.severity || "Not specified"}
+              </div>
+            </div>
+          </div>
+
+          {/* Medications Mentioned */}
+          <div className="border-b py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Medications Mentioned</div>
+            <div className="text-sm">
+              {report.medicationsMentioned && report.medicationsMentioned.length > 0
+                ? report.medicationsMentioned.join(", ")
+                : "None mentioned."}
+            </div>
+          </div>
+
+          {/* Recommendations */}
+          <div className="py-3">
+            <div className="text-blue-800 font-semibold text-lg mb-1">Recommendations</div>
+            <ul className="list-disc text-sm ml-5">
+              {report.recommendations && report.recommendations.length > 0 ? (
+                report.recommendations.map((rec, i) => <li key={i}>{rec}</li>)
+              ) : (
+                <li>None provided.</li>
+              )}
+            </ul>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-4 pt-2 pb-3 px-2 text-xs text-gray-500 text-center border-t">
+            This report was generated by an AI Medical Assistant for informational purposes only.
+          </div>
+
+          <DialogFooter className="flex justify-center">
+            <Button variant="outline" onClick={() => onOpenChange(false)}>
+              Close
+            </Button>
+          </DialogFooter>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
