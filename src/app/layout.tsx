@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   // image: "/2465196.jpg",
   title: "HealthMate Voice",
   description: "AI-powered voice assistant for healthcare",
+  icons: {
+    icon: "/check-up.png", // path from /public
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
