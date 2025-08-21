@@ -1,9 +1,14 @@
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
+// "use client";
+export const dynamic = "force-dynamic";
+
 import React from 'react'
 import { AddNewSessionDialog } from './_components/AddNewSessionDialog';
-import Image from 'next/image';
+// import Image from 'next/image';
 import HistoryList from './_components/HistoryList';
 import DoctorsAgentList from './_components/DoctorsAgentList';
+
+
 const Dashboard = () => {
 
   return (

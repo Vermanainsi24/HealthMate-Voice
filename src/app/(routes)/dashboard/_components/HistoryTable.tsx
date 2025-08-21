@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SessionDetail } from "../medical-agent/[sessionId]/page";
 import { ViewReportDialog } from "./ViewReportDialog";
+// import { Suspense } from 'react';
 
 type Props = {
   historyList: SessionDetail[];

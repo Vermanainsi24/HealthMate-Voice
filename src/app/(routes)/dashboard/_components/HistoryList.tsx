@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AddNewSessionDialog } from "./AddNewSessionDialog"; // Adjust path if needed
 import HistoryTable from "./HistoryTable"; // Adjust path if needed
 import axios from "axios";
+// import { Suspense } from 'react';
 
 function HistoryList() {
   const [historyList, setHistoryList] = useState<any[]>([]);
