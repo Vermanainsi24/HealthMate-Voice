@@ -12,8 +12,15 @@ export function LampDemo() {
           initial={{ opacity: 0.5, y: 50, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className="bg-gradient-to-br from-blue-300 via-teal-500 to-blue-600 bg-clip-text text-4xl md:text-7xl font-extrabold tracking-tight text-transparent drop-shadow-lg text-center md:text-left mt-120"
+          className="bg-gradient-to-br from-blue-300 via-teal-500 to-blue-600 bg-clip-text text-4xl md:text-7xl font-extrabold tracking-tight text-transparent drop-shadow-lg text-center
+          sm:text-left mt-180
+          md:text-left 
+          lg:text-center lg:mt-140  
+          "
+        
+        
         >
+        
           Transform Healthcare <br /> with AI Voice Assistants
         </motion.h1>
         <motion.div
@@ -22,7 +29,9 @@ export function LampDemo() {
           transition={{ delay: 0.5, duration: 0.8, ease: "easeInOut" }}
           className="mt-6 md:mt-140 md:ml-8"
         >
-          <Image src="/consult.png" alt="Lamp" width={300} height={300} />
+          <Image src="/consult.png" alt="Lamp" width={300} height={300} 
+          //  className="  sm:w-50 md:w-28"/>
+          />
         </motion.div>
       </div>
     </LampContainer>
